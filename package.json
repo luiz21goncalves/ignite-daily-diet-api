@@ -6,12 +6,15 @@
   "author": "Luiz Gonçalves<luizhbgoncalves@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "start:dev": "tsx watch src/server.ts"
+    "start:dev": "tsx watch src/server.ts",
+    "start": "node build/server.js",
+    "build": "tsup"
   },
   "dependencies": {
     "fastify": "4.15.0"
   },
   "devDependencies": {
+    "tsup": "6.7.0",
     "tsx": "3.12.6",
     "typescript": "5.0.4"
   }
