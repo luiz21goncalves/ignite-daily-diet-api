@@ -1,3 +1,4 @@
+import cookie from '@fastify/cookie'
 import fastify from 'fastify'
 import { StatusCodes } from 'http-status-codes'
 import { ZodError } from 'zod'
@@ -9,6 +10,7 @@ const app = fastify({
   logger,
 })
 
+app.register(cookie)
 app.register(appRoutes)
 
 app.setErrorHandler((error, request, replay) => {
