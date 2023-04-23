@@ -72,6 +72,9 @@ devDependencies:
   vitest:
     specifier: 0.30.1
     version: 0.30.1
+  vitest-environment-prisma:
+    specifier: link:./prisma/vitest-environment-prisma
+    version: link:prisma/vitest-environment-prisma
 
 packages:
 

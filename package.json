@@ -40,6 +40,7 @@
     "tsx": "3.12.6",
     "typescript": "5.0.4",
     "vite-tsconfig-paths": "4.2.0",
-    "vitest": "0.30.1"
+    "vitest": "0.30.1",
+    "vitest-environment-prisma": "link:./prisma/vitest-environment-prisma"
   }
 }
