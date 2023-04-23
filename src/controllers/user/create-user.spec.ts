@@ -22,6 +22,9 @@ describe('Create user', () => {
     })
 
     expect(response.statusCode).toEqual(StatusCodes.CREATED)
+    expect(response.get('Set-Cookie')).toStrictEqual([
+      expect.stringContaining('sessionId'),
+    ])
     expect(response.body).toStrictEqual({
       user: {
         id: expect.any(String),
