@@ -18,6 +18,7 @@
   "dependencies": {
     "@fastify/cookie": "8.3.0",
     "@prisma/client": "4.13.0",
+    "dayjs": "1.11.7",
     "dotenv": "16.0.3",
     "fastify": "4.15.0",
     "http-status-codes": "2.2.0",
