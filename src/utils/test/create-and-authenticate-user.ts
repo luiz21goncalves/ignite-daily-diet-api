@@ -1,4 +1,5 @@
 import { faker } from '@faker-js/faker'
+import { User } from '@prisma/client'
 import { FastifyInstance } from 'fastify'
 import supertest from 'supertest'
 
@@ -9,7 +10,7 @@ export async function createAndAuthenticateUser(app: FastifyInstance) {
     name,
   })
 
-  const { user } = response.body
+  const user = response.body.user as User
   const sessionId = response.headers['set-cookie'][0] as string
 
   return { user, sessionId }
