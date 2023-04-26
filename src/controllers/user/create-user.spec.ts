@@ -5,7 +5,7 @@ import { expect, describe, beforeAll, afterAll, it } from 'vitest'
 
 import { app } from '@/app'
 
-describe('Create user', () => {
+describe('Create User (e2e)', () => {
   beforeAll(async () => {
     await app.ready()
   })
