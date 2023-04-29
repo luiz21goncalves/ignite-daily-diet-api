@@ -8,7 +8,6 @@ export async function getMeal(request: FastifyRequest, replay: FastifyReply) {
   const updateMealParamsSchema = z.object({
     id: z.string().uuid(),
   })
-
   const cookieSchema = z.object({
     sessionId: z.string().uuid(),
   })
