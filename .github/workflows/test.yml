@@ -1,0 +1,52 @@
+name: Run Tests
+
+on: [pull_request]
+
+jobs:
+  run-e2e-tests:
+    name: Run E2E Tests
+    runs-on: ubuntu-22.04
+
+    services:
+      postgres:
+        image: 'bitnami/postgresql:15.2.0'
+        ports:
+          - 5432:5432
+        env:
+          POSTGRESQL_USERNAME: docker
+          POSTGRESQL_PASSWORD: docker
+          POSTGRESQL_DATABASE: ignite-daily-diet-api
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Install PNPM
+        uses: pnpm/action-setup@v2.2.4
+        with:
+          version: 8.3.1
+
+      - name: Cache node_modules
+        uses: actions/cache@v3
+        id: pnpm-cache
+        with:
+          path: '**/node_modules'
+          key: ${{ runner.os }}-node-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+      - name: Setup Node and install project dependencies
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18.16.0
+          check-latest: true
+          cache: 'pnpm'
+
+        if: steps.pnpm-cache.outputs.cache-hit != 'true'
+      - run: pnpm install --prefer-offline
+
+      - run: pnpm run test:e2e
+        env:
+          PORT: 3333
+          LOGGER_ENABLED:
+          LOGGER_LEVEL: silent
+          DATABASE_URL: 'postgresql://docker:docker@localhost:5432/ignite-daily-diet-api?schema=public'
