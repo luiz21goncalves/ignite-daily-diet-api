@@ -11,7 +11,6 @@ export async function listAllMealsByUser(
   const cookieSchema = z.object({
     sessionId: z.string().uuid(),
   })
-
   const { sessionId } = cookieSchema.parse(request.cookies)
 
   const meals = await prisma.meal.findMany({

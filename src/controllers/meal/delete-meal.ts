@@ -11,10 +11,25 @@ export async function deleteMeal(
   const deleteMealParamsSchema = z.object({
     id: z.string().uuid(),
   })
+  const cookieSchema = z.object({
+    sessionId: z.string().uuid(),
+  })
 
   const { id } = deleteMealParamsSchema.parse(request.params)
+  const { sessionId } = cookieSchema.parse(request.cookies)
 
-  await prisma.meal.delete({ where: { id } })
+  const meal = await prisma.meal.findFirst({
+    where: {
+      id,
+      user_id: sessionId,
+    },
+  })
 
-  return replay.status(StatusCodes.NO_CONTENT).send()
+  if (meal) {
+    await prisma.meal.delete({ where: { id: meal.id } })
+
+    return replay.status(StatusCodes.NO_CONTENT).send()
+  }
+
+  return replay.status(StatusCodes.UNAUTHORIZED).send()
 }

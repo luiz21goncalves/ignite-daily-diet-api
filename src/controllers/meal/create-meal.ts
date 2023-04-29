@@ -22,7 +22,6 @@ export async function createMeal(
 
   const { date, description, is_included_in_the_diet, name } =
     createMealSchema.parse(request.body)
-
   const { sessionId } = cookieSchema.parse(request.cookies)
 
   const meal = await prisma.meal.create({
