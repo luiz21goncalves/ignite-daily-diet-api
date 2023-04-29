@@ -1,6 +1,7 @@
 import { FastifyInstance } from 'fastify'
 
 import { createMeal } from './controllers/meal/create-meal'
+import { updateMeal } from './controllers/meal/update-meal'
 import { createUser } from './controllers/user/create-user'
 import { userProfile } from './controllers/user/user-profile'
 import { checkSessionIdExists } from './middleware/check-session-id-exists'
@@ -20,4 +21,5 @@ export async function appRoutes(app: FastifyInstance) {
   app.get('/me', { preHandler: [checkSessionIdExists] }, userProfile)
 
   app.post('/meals', { preHandler: [checkSessionIdExists] }, createMeal)
+  app.put('/meals/:id', { preHandler: [checkSessionIdExists] }, updateMeal)
 }
